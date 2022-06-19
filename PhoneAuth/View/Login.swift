@@ -11,6 +11,8 @@ struct Login: View {
     
     @StateObject var loginData = LoginViewModel()
     
+    @State var characterCount: Int = 0
+    
     var body: some View {
         
         VStack {
@@ -53,9 +55,7 @@ struct Login: View {
                     
                     Spacer(minLength: 0)
                     
-                    Button {
-                        //Some action
-                    } label: {
+                    NavigationLink(destination: Verification(loginData: loginData)) {
                         Text("Continue")
                             .foregroundColor(.black)
                             .padding(.vertical, 18)
@@ -161,11 +161,18 @@ struct Login: View {
         if value == "delete.left" && loginData.phNo != "" {
             
             loginData.phNo.removeLast()
+            characterCount -= 1
+//            print("Character count is: \(characterCount)")
             
         }
         
         if value != "delete.left" {
             loginData.phNo.append(value)
+            
+            characterCount += 1
+            
+//            print("Character count is: \(characterCount)")
+            
         }
         
     }
